@@ -152,13 +152,13 @@ public class MainController implements Initializable {
     }
 
     public void setVolumeListener(){
-         volumeSlider.valueProperty().addListener(new ChangeListener<Number>() {
-             @Override
-             public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
-                 MediaPlayer mediaPlayer = player.getPlayer();
-                 mediaPlayer.setVolume(volumeSlider.getValue() * 0.01);
-             }
-         });
+        volumeSlider.valueProperty().addListener(new ChangeListener<Number>() {
+            @Override
+            public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+                MediaPlayer mediaPlayer = player.getPlayer();
+                mediaPlayer.setVolume(volumeSlider.getValue() * 0.01);
+            }
+        });
     }
     public void setProgressOnMouse() {
         progressslider.setOnMouseClicked(event -> {
