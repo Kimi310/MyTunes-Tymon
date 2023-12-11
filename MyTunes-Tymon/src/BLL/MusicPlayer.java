@@ -83,6 +83,12 @@ public class MusicPlayer {
         timer.cancel();
     }
 
+    public void pausePlayer(Button playButton){
+        player.pause();
+        playButton.setGraphic(new ImageView("Images/pause.png"));
+        playing=false;
+    }
+
     public String getCurrentSongURI(){
         return sound.getSource();
     }

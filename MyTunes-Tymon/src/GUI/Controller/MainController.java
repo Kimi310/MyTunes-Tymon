@@ -29,6 +29,12 @@ import java.util.ResourceBundle;
 
 public class MainController implements Initializable {
     @FXML
+    private Button deletebtn;
+    @FXML
+    private Button editbtn;
+    @FXML
+    private Button addbtn;
+    @FXML
     private Slider volumeSlider;
     @FXML
     private Slider progressslider;
@@ -131,6 +137,9 @@ public class MainController implements Initializable {
         nextbtn.setGraphic(new ImageView("Images/next.png"));
         prevbtn.setGraphic(new ImageView("Images/prev.png"));
         playbtn.setGraphic(new ImageView("Images/play.png"));
+        deletebtn.setGraphic(new ImageView("Images/delete.png"));
+        editbtn.setGraphic(new ImageView("Images/edit.png"));
+        addbtn.setGraphic(new ImageView("Images/add.png"));
         if (data.isEmpty()){
             playbtn.setDisable(true);
             nextbtn.setDisable(true);
@@ -228,12 +237,11 @@ public class MainController implements Initializable {
     public void deleteSongHandler(ActionEvent actionEvent) {
         selectedSong = songtable.getSelectionModel().getSelectedItem();
         if (selectedSong!=null && !data.isEmpty()){
-            if (Objects.equals(new File(selectedSong.getFile()).toURI().toString(), player.getCurrentSongURI())){
                 data.remove(selectedSong);
-                if (data.isEmpty()){
+                if (data.isEmpty() && player.getPlayer()!=null){
                     playinglbl.setText("Nothing is playing");
-                    player.playPause(playbtn);
-                }else {
+                    player.pausePlayer(playbtn);
+                }else if (player.getPlayer()!=null){
                     if (currentSongIndex != data.size()-1){
                         Song nextSong = data.get(currentSongIndex+1);
                         beginSongHandler(nextSong);
@@ -242,8 +250,14 @@ public class MainController implements Initializable {
                         beginSongHandler(nextSong);
                     }
                 }
-            }
-
         }
+    }
+
+    public void openPlaylistSeciton(ActionEvent actionEvent) throws IOException {
+        Stage primaryStage = (Stage) nextbtn.getScene().getWindow();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/View/PlaylistView.fxml"));
+        Parent root = loader.load();
+        primaryStage.setScene(new Scene(root));
+        primaryStage.show();
     }
 }
