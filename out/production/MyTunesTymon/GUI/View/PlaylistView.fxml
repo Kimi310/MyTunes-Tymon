@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Slider?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane prefHeight="462.0" prefWidth="781.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.Controller.PlaylistViewController">
+    <children>
+        <Slider fx:id="volumeSlider" layoutX="617.0" layoutY="423.0" max="200.0" prefHeight="14.0" prefWidth="118.0" value="100.0" />
+        <Button fx:id="playbtn" alignment="CENTER" layoutX="77.0" layoutY="408.0" mnemonicParsing="false" onAction="#playPauseMusicHandler" prefHeight="45.0" prefWidth="43.0" />
+        <Button fx:id="nextbtn" alignment="CENTER" layoutX="126.0" layoutY="415.0" mnemonicParsing="false" onAction="#playNextSong" prefHeight="34.0" prefWidth="43.0" />
+        <Button fx:id="prevbtn" alignment="CENTER" layoutX="28.0" layoutY="415.0" mnemonicParsing="false" onAction="#playPrevSong" prefHeight="34.0" prefWidth="43.0" />
+        <VBox layoutX="611.0" layoutY="70.0" prefHeight="144.0" prefWidth="157.0">
+            <children>
+                <Button mnemonicParsing="false" onAction="#openSongsSection" prefHeight="26.0" prefWidth="158.0" text="Songs">
+                    <VBox.margin>
+                        <Insets bottom="10.0" />
+                    </VBox.margin></Button>
+                <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="161.0" text="Playlists" />
+            </children>
+        </VBox>
+        <HBox alignment="CENTER_LEFT" layoutX="28.0" layoutY="30.0" prefHeight="26.0" prefWidth="607.0">
+            <children>
+                <Button fx:id="createPlaylistbtn" mnemonicParsing="false" prefHeight="26.0" prefWidth="60.0">
+                    <HBox.margin>
+                        <Insets right="10.0" />
+                    </HBox.margin>
+                </Button>
+                <Button fx:id="editPlaylistbtn" mnemonicParsing="false" prefHeight="26.0" prefWidth="60.0">
+                    <HBox.margin>
+                        <Insets right="10.0" />
+                    </HBox.margin>
+                </Button>
+                <Button fx:id="deletePlaylistbtn" mnemonicParsing="false" prefHeight="26.0" prefWidth="60.0" />
+            </children>
+            <opaqueInsets>
+                <Insets />
+            </opaqueInsets>
+        </HBox>
+        <Label fx:id="playinglbl" alignment="CENTER" layoutX="430.0" layoutY="422.0" prefHeight="17.0" prefWidth="131.0" text="Nothing is playing" />
+        <TableView fx:id="songtable" layoutX="268.0" layoutY="70.0" prefHeight="327.0" prefWidth="319.0">
+            <columns>
+                <TableColumn fx:id="titleColumn" prefWidth="130.0" text="Title" />
+                <TableColumn fx:id="artistColumn" prefWidth="136.0" text="Artist" />
+                <TableColumn fx:id="timeColumn" prefWidth="53.0" text="Time" />
+            </columns>
+        </TableView>
+        <Slider fx:id="progressslider" layoutX="201.0" layoutY="424.0" max="200.0" prefHeight="14.0" prefWidth="214.0" />
+        <ImageView fitHeight="25.0" fitWidth="25.0" layoutX="592.0" layoutY="418.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@../../Images/volume_mute.png" />
+            </image>
+        </ImageView>
+        <ImageView fitHeight="25.0" fitWidth="25.0" layoutX="735.0" layoutY="418.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@../../Images/volume_up.png" />
+            </image>
+        </ImageView>
+      <TableView fx:id="playlisttable" layoutX="27.0" layoutY="70.0" prefHeight="327.0" prefWidth="204.0">
+         <columns>
+            <TableColumn fx:id="playlistNameColumn" prefWidth="203.0" text="Name" />
+         </columns>
+      </TableView>
+    </children>
+</AnchorPane>
