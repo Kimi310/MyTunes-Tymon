@@ -3,6 +3,7 @@ package GUI.Controller;
 import BE.Song;
 import BLL.FilterHandler;
 import BLL.MusicPlayer;
+import BLL.ViewProperitesSetter;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -64,16 +65,17 @@ public class MainController implements Initializable {
     private final ObservableList<Song> data = FXCollections.observableArrayList();
     private Song selectedSong;
     private int selectedSongIndex;
-
+    private ViewProperitesSetter setter = new ViewProperitesSetter();
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         setButtons();
         setTablePropertiesOnInit();
-        setVolumeListener();
-        setProgressOnMouse();
+        setter.setVolumeListener(volumeSlider,player);
+        setter.setProgressOnMouse(progressslider,player);
         setDataListener();
         progressslider.disableProperty().set(true);
+        volumeSlider.disableProperty().set(true);
     }
 
     private void setDataListener() {
@@ -82,6 +84,7 @@ public class MainController implements Initializable {
             public void onChanged(Change<? extends Song> c) {
                 if (data.isEmpty()){
                     progressslider.disableProperty().set(true);
+                    volumeSlider.disableProperty().set(true);
                     playbtn.setDisable(true);
                     nextbtn.setDisable(true);
                     prevbtn.setDisable(true);
@@ -160,26 +163,6 @@ public class MainController implements Initializable {
         songtable.setItems(data);
     }
 
-    public void setVolumeListener(){
-        volumeSlider.valueProperty().addListener(new ChangeListener<Number>() {
-            @Override
-            public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
-                MediaPlayer mediaPlayer = player.getPlayer();
-                mediaPlayer.setVolume(volumeSlider.getValue() * 0.01);
-            }
-        });
-    }
-    public void setProgressOnMouse() {
-        progressslider.setOnMouseClicked(event -> {
-            MediaPlayer mediaPlayer = player.getPlayer();
-            mediaPlayer.seek(Duration.seconds(progressslider.getValue()));
-        });
-        progressslider.setOnMouseDragOver(event -> {
-            MediaPlayer mediaPlayer = player.getPlayer();
-            mediaPlayer.seek(Duration.seconds(progressslider.getValue()));
-        });
-    }
-
     public void playPrevSong(ActionEvent actionEvent) {
         if (currentSongIndex != 0){
             Song prevSong = data.get(currentSongIndex-1);
@@ -207,6 +190,7 @@ public class MainController implements Initializable {
         player.playNewSong(rowSong.getFile(),playbtn);
         player.beginTimer(progressslider);
         progressslider.disableProperty().set(false);
+        volumeSlider.disableProperty().set(false);
         playinglbl.setText(rowSong.getTitle());
     }
 
@@ -252,11 +236,11 @@ public class MainController implements Initializable {
                 }
         }
     }
-
     public void openPlaylistSeciton(ActionEvent actionEvent) throws IOException {
         Stage primaryStage = (Stage) nextbtn.getScene().getWindow();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/View/PlaylistView.fxml"));
         Parent root = loader.load();
+        player.playPause(playbtn);
         primaryStage.setScene(new Scene(root));
         primaryStage.show();
     }

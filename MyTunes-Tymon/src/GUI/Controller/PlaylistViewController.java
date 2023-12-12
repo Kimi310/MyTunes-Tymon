@@ -1,5 +1,7 @@
 package GUI.Controller;
 
+import BLL.MusicPlayer;
+import BLL.ViewProperitesSetter;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -10,16 +12,26 @@ import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 
+import javax.swing.*;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class PlaylistViewController implements Initializable {
-    public TableColumn playlistNameColumn;
-    public TableView playlisttable;
-    public Button editPlaylistbtn;
-    public Button createPlaylistbtn;
-    public Button deletePlaylistbtn;
+    @FXML
+    private  TableColumn playlistNameColumn;
+    @FXML
+    private  TableView playlisttable;
+    @FXML
+    private  Button editPlaylistbtn;
+    @FXML
+    private  Button createPlaylistbtn;
+    @FXML
+    private  Button deletePlaylistbtn;
+    @FXML
+    private  Button deleteSongFromPlaylistbtn;
+    @FXML
+    private  Button addSongToPlaylistbtn;
     @FXML
     private Slider volumeSlider;
     @FXML
@@ -44,7 +56,15 @@ public class PlaylistViewController implements Initializable {
     private TableColumn timeColumn;
     @FXML
     private Slider progressslider;
+    private MusicPlayer player;
+    private ViewProperitesSetter setter = new ViewProperitesSetter();
 
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        setButtons();
+        setter.setVolumeListener(volumeSlider, player);
+        setter.setProgressOnMouse(progressslider,player);
+    }
     public void playPauseMusicHandler(ActionEvent actionEvent) {
     }
 
@@ -53,6 +73,7 @@ public class PlaylistViewController implements Initializable {
 
     public void playPrevSong(ActionEvent actionEvent) {
     }
+
 
     public void openSongsSection(ActionEvent actionEvent) throws IOException {
         Stage primaryStage = (Stage) nextbtn.getScene().getWindow();
@@ -69,10 +90,8 @@ public class PlaylistViewController implements Initializable {
         deletePlaylistbtn.setGraphic(new ImageView("Images/delete.png"));
         editPlaylistbtn.setGraphic(new ImageView("Images/edit.png"));
         createPlaylistbtn.setGraphic(new ImageView("Images/add.png"));
+        addSongToPlaylistbtn.setGraphic(new ImageView("Images/add.png"));
+        deleteSongFromPlaylistbtn.setGraphic(new ImageView("Images/delete.png"));
     }
 
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-        setButtons();
-    }
 }
