@@ -33,7 +33,6 @@ public class DataBaseAccess{
             ResultSet generatedKeys = st.getGeneratedKeys();
                 if (generatedKeys.next()) {
                     song.setId( generatedKeys.getInt(1));
-                    System.out.println(song.getId());
                 }
                 else {
                     throw new SQLException("Creating user failed, no ID obtained.");

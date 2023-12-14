@@ -1,6 +1,7 @@
 package GUI.Controller;
 
 import BE.Song;
+import BLL.DataHandler;
 import BLL.FilterHandler;
 import BLL.MusicPlayer;
 import BLL.ViewProperitesSetter;
@@ -68,7 +69,7 @@ public class MainController implements Initializable {
     private Song selectedSong;
     private int selectedSongIndex;
     private ViewProperitesSetter setter = new ViewProperitesSetter();
-    private DataBaseAccess dba = new DataBaseAccess();
+    private DataHandler dh = new DataHandler();
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -113,7 +114,7 @@ public class MainController implements Initializable {
     }
 
     public void addSongToTable(Song song) throws SQLException {
-        dba.addSongToDB(song);
+        dh.addSongToDB(song);
     }
     public void playPauseMusicHandler(ActionEvent actionEvent) {
         player.playPause(playbtn);
@@ -248,6 +249,6 @@ public class MainController implements Initializable {
     }
 
     public void poluteData(){
-        dba.getAllSongsFromDB(data);
+        dh.getAllSongsFromDB(data);
     }
 }
