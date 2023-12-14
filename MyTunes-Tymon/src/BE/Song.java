@@ -6,6 +6,7 @@ public class Song {
     private String category;
     private String time;
     private String file;
+    private int id;
 
     public Song(String title, String artist, String category, String time,String file) {
         this.title = title;
@@ -13,6 +14,14 @@ public class Song {
         this.category = category;
         this.time = time;
         this.file = file;
+    }
+    public Song(int id,String title, String artist, String category, String time,String file) {
+        this.title = title;
+        this.artist = artist;
+        this.category = category;
+        this.time = time;
+        this.file = file;
+        this.id = id;
     }
 
     public void setFile(String file) {
@@ -53,5 +62,11 @@ public class Song {
 
     public void setTime(String time) {
         this.time = time;
+    }
+    public void setId (int id){
+        this.id = id;
+    }
+    public int getId(){
+        return id;
     }
 }

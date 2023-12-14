@@ -2,6 +2,7 @@ package GUI.Controller;
 
 import BE.Song;
 import BLL.AddingSongHandler;
+import com.microsoft.sqlserver.jdbc.SQLServerDataSource;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -13,6 +14,7 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.stage.FileChooser.ExtensionFilter;
 import java.io.File;
+import java.sql.SQLException;
 
 public class AddSongViewController {
     @FXML
@@ -34,7 +36,7 @@ public class AddSongViewController {
 
     private MainController controller = new MainController();
 
-    public void addSongToList(ActionEvent actionEvent) {
+    public void addSongToList(ActionEvent actionEvent) throws SQLException {
         if (handler.checkNewSong(handler.textFieldsToString(titletxt,artisttxt,categorytxt,timetxt,filetxt))){
             if (editing==false){
                 Song song = new Song(titletxt.getText(),artisttxt.getText(),categorytxt.getText(),timetxt.getText(),filetxt.getText());

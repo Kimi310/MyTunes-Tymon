@@ -4,6 +4,7 @@ import BE.Song;
 import BLL.FilterHandler;
 import BLL.MusicPlayer;
 import BLL.ViewProperitesSetter;
+import DAL.DataBaseAccess;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -25,6 +26,7 @@ import javafx.util.Duration;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
@@ -66,9 +68,11 @@ public class MainController implements Initializable {
     private Song selectedSong;
     private int selectedSongIndex;
     private ViewProperitesSetter setter = new ViewProperitesSetter();
+    private DataBaseAccess dba = new DataBaseAccess();
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        poluteData();
         setButtons();
         setTablePropertiesOnInit();
         setter.setVolumeListener(volumeSlider,player);
@@ -108,11 +112,9 @@ public class MainController implements Initializable {
         primaryStage.show();
     }
 
-    public void addSongToTable(Song song){
-        data.add(song);
-        System.out.println(data.get(0).getArtist());
+    public void addSongToTable(Song song) throws SQLException {
+        dba.addSongToDB(song);
     }
-
     public void playPauseMusicHandler(ActionEvent actionEvent) {
         player.playPause(playbtn);
     }
@@ -243,5 +245,9 @@ public class MainController implements Initializable {
         player.playPause(playbtn);
         primaryStage.setScene(new Scene(root));
         primaryStage.show();
+    }
+
+    public void poluteData(){
+        dba.getAllSongsFromDB(data);
     }
 }

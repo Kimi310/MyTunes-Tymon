@@ -1,0 +1,73 @@
+package DAL;
+
+import BE.Song;
+import com.microsoft.sqlserver.jdbc.SQLServerDataSource;
+import com.microsoft.sqlserver.jdbc.SQLServerException;
+import javafx.collections.ObservableList;
+import javafx.fxml.Initializable;
+
+import java.net.URL;
+import java.sql.*;
+import java.util.ResourceBundle;
+
+public class DataBaseAccess{
+    public void addSongToDB(Song song) throws SQLException{
+        SQLServerDataSource ds = new SQLServerDataSource();
+        ds.setDatabaseName("CSe22B_41_MyTunes_Group_A1");
+        ds.setUser("CSe2023b_e_26");
+        ds.setPassword("CSe2023bE26#23");
+        ds.setPortNumber(1433);
+        ds.setServerName("10.176.111.34");
+        ds.setTrustServerCertificate(true);
+        try {
+            Connection con = ds.getConnection();
+            String sql = "INSERT INTO Songs (title, artist, category, time, path) VALUES (?,?,?,?,?)";
+            PreparedStatement st = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            con.setAutoCommit(false);
+            st.setString(1, song.getTitle());
+            st.setString(2,song.getArtist());
+            st.setString(3,song.getCategory());
+            st.setString(4,song.getTime());
+            st.setString(5,song.getFile());
+            st.executeUpdate();
+            ResultSet generatedKeys = st.getGeneratedKeys();
+                if (generatedKeys.next()) {
+                    song.setId( generatedKeys.getInt(1));
+                    System.out.println(song.getId());
+                }
+                else {
+                    throw new SQLException("Creating user failed, no ID obtained.");
+                }
+            con.commit();
+            con.setAutoCommit(true);
+        } catch (SQLServerException e) {
+            throw new RuntimeException(e);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void getAllSongsFromDB(ObservableList<Song> data){
+        SQLServerDataSource ds = new SQLServerDataSource();
+        ds.setDatabaseName("CSe22B_41_MyTunes_Group_A1");
+        ds.setUser("CSe2023b_e_26");
+        ds.setPassword("CSe2023bE26#23");
+        ds.setPortNumber(1433);
+        ds.setServerName("10.176.111.34");
+        ds.setTrustServerCertificate(true);
+        try{
+            Connection con = ds.getConnection();
+            String sql = "SELECT * FROM Songs";
+            Statement st = con.createStatement();
+            ResultSet rs = st.executeQuery(sql);
+            while (rs.next()){
+                Song s = new Song(rs.getInt("id"),rs.getString("title"),rs.getString("artist"),rs.getString("category"), rs.getString("time"), rs.getString("path"));
+                data.add(s);
+            }
+        } catch (SQLServerException e) {
+            throw new RuntimeException(e);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+}
