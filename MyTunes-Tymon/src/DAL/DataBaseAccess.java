@@ -90,7 +90,7 @@ public class DataBaseAccess{
             throw new RuntimeException(e);
         }
     }
-    public void editSongOnIndex(int id){
+    public void editSongOnIndex(int id,Song song){
         SQLServerDataSource ds = new SQLServerDataSource();
         ds.setDatabaseName("CSe22B_41_MyTunes_Group_A1");
         ds.setUser("CSe2023b_e_26");
@@ -100,8 +100,18 @@ public class DataBaseAccess{
         ds.setTrustServerCertificate(true);
         try{
             Connection con = ds.getConnection();
-            String sql = ""
+            String sql = "UPDATE Songs SET title = ?, artist = ?, category = ?, time = ?, path = ? WHERE id = ?";
+            PreparedStatement st = con.prepareStatement(sql);
+            st.setString(1,song.getTitle());
+            st.setString(2,song.getArtist());
+            st.setString(3,song.getCategory());
+            st.setString(4,song.getTime());
+            st.setString(5,song.getFile());
+            st.setInt(6,id);
+            st.executeUpdate();
         } catch (SQLServerException e) {
+            throw new RuntimeException(e);
+        } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }

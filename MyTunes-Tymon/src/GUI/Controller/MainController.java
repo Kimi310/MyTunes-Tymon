@@ -201,18 +201,13 @@ public class MainController implements Initializable {
     public void editSongHandler(ActionEvent actionEvent) throws IOException {
         selectedSong = songtable.getSelectionModel().getSelectedItem();
         if (selectedSong!=null && !data.isEmpty()){
-            for (int i=0;i<data.size();i++) {
-                if (data.get(i) == selectedSong){
-                    selectedSongIndex = i;
-                    break;
-                }
-            }
+            selectedSongIndex = selectedSong.getId();
             Stage primaryStage = new Stage();
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/View/AddSongView.fxml"));
             Parent root = loader.load();
             AddSongViewController addSong = loader.getController();
             addSong.setParentController(this);
-            addSong.editInit(data,selectedSongIndex);
+            addSong.editInit(selectedSong,selectedSongIndex);
             primaryStage.setScene(new Scene(root));
             primaryStage.show();
         }
@@ -247,6 +242,7 @@ public class MainController implements Initializable {
     }
 
     public void poluteData(){
+        data.clear();
         dh.getAllSongsFromDB(data);
     }
 }

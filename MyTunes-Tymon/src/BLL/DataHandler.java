@@ -24,4 +24,8 @@ public class DataHandler {
         data.clear();
         dba.getAllSongsFromDB(data);
     }
+
+    public void editSongOnIndex(int id, Song s){
+        dba.editSongOnIndex(id,s);
+    }
 }
