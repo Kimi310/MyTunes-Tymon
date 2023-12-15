@@ -115,4 +115,31 @@ public class DataBaseAccess{
             throw new RuntimeException(e);
         }
     }
+
+    public void createPlaylistTable(String playlistName){
+        SQLServerDataSource ds = new SQLServerDataSource();
+        ds.setDatabaseName("CSe22B_41_MyTunes_Group_A1");
+        ds.setUser("CSe2023b_e_26");
+        ds.setPassword("CSe2023bE26#23");
+        ds.setPortNumber(1433);
+        ds.setServerName("10.176.111.34");
+        ds.setTrustServerCertificate(true);
+        try{
+            Connection con = ds.getConnection();
+            String sql = "CREATE TABLE "+playlistName+"(id INT, title nvarchar(250), artist nvarchar(250),category nvarchar(250),time nvarchar(10),path nvarchar(250))";
+            PreparedStatement st = con.prepareStatement(sql);
+            st.executeUpdate();
+            String sql1 = "ALTER TABLE "+playlistName+" ADD FOREIGN KEY (id) REFERENCES Songs(id)";
+            PreparedStatement st1 = con.prepareStatement(sql1);
+            st1.executeUpdate();
+            String sql2 = "INSERT INTO Playlists (name) VALUES (?)";
+            PreparedStatement st2 = con.prepareStatement(sql2);
+            st2.setString(1,playlistName);
+            st2.executeUpdate();
+        } catch (SQLServerException e) {
+            throw new RuntimeException(e);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

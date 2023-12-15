@@ -94,4 +94,11 @@ public class PlaylistViewController implements Initializable {
         deleteSongFromPlaylistbtn.setGraphic(new ImageView("Images/delete.png"));
     }
 
+    public void createNewPlaylistPopUp(ActionEvent actionEvent) throws IOException {
+        Stage primaryStage = new Stage();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/View/CreatePlaylistView.fxml"));
+        Parent root = loader.load();
+        primaryStage.setScene(new Scene(root));
+        primaryStage.show();
+    }
 }

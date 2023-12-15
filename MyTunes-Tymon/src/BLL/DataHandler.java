@@ -28,4 +28,8 @@ public class DataHandler {
     public void editSongOnIndex(int id, Song s){
         dba.editSongOnIndex(id,s);
     }
+
+    public void createPlaylistTable(String name){
+        dba.createPlaylistTable(name);
+    }
 }

@@ -29,7 +29,7 @@
         </VBox>
         <HBox alignment="CENTER_LEFT" layoutX="28.0" layoutY="30.0" prefHeight="26.0" prefWidth="607.0">
             <children>
-                <Button fx:id="createPlaylistbtn" mnemonicParsing="false" prefHeight="26.0" prefWidth="60.0">
+                <Button fx:id="createPlaylistbtn" mnemonicParsing="false" onAction="#createNewPlaylistPopUp" prefHeight="26.0" prefWidth="60.0">
                     <HBox.margin>
                         <Insets right="10.0" />
                     </HBox.margin>
