@@ -1,7 +1,12 @@
 package GUI.Controller;
 
+import BE.Playlist;
+import BE.Song;
+import BLL.DataHandler;
 import BLL.MusicPlayer;
 import BLL.ViewProperitesSetter;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -9,6 +14,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 
@@ -19,9 +25,9 @@ import java.util.ResourceBundle;
 
 public class PlaylistViewController implements Initializable {
     @FXML
-    private  TableColumn playlistNameColumn;
+    private  TableColumn<Playlist,String> playlistNameColumn;
     @FXML
-    private  TableView playlisttable;
+    private  TableView<Playlist> playlisttable;
     @FXML
     private  Button editPlaylistbtn;
     @FXML
@@ -45,25 +51,28 @@ public class PlaylistViewController implements Initializable {
     @FXML
     private Label playinglbl;
     @FXML
-    private TableView songtable;
+    private TableView<Song> songtable;
     @FXML
-    private TableColumn titleColumn;
+    private TableColumn<Song,String> titleColumn;
     @FXML
-    private TableColumn artistColumn;
+    private TableColumn<Song,String> artistColumn;
     @FXML
-    private TableColumn categoryColumn;
-    @FXML
-    private TableColumn timeColumn;
+    private TableColumn<Song,String> timeColumn;
     @FXML
     private Slider progressslider;
     private MusicPlayer player;
     private ViewProperitesSetter setter = new ViewProperitesSetter();
-
+    private final ObservableList<Playlist> playlists = FXCollections.observableArrayList();
+    private ObservableList<Song> data = FXCollections.observableArrayList();
+    private DataHandler dh = new DataHandler();
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         setButtons();
         setter.setVolumeListener(volumeSlider, player);
         setter.setProgressOnMouse(progressslider,player);
+        polutePlaylistsObservableList();
+        setSongsTAbleProperties();
+        setPlaylistsTAbleProperties();
     }
     public void playPauseMusicHandler(ActionEvent actionEvent) {
     }
@@ -72,9 +81,46 @@ public class PlaylistViewController implements Initializable {
     }
 
     public void playPrevSong(ActionEvent actionEvent) {
+
     }
-
-
+    private void polutePlaylistsObservableList(){
+        dh.getAllPlaylists(playlists);
+    }
+    private void setPlaylistsTAbleProperties(){
+        playlisttable.setEditable(true);
+        playlistNameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
+        playlisttable.setItems(playlists);
+        playlisttable.setRowFactory(tv -> {
+            TableRow<Playlist> row = new TableRow<>();
+            row.setOnMouseClicked(event -> {
+                if (event.getClickCount()==2 && !row.isEmpty()){
+                    Playlist playlist = row.getItem();
+                    data = playlist.getSongs();
+                    System.out.println(data.get(0));
+                }
+            });
+            return row;
+        });
+    }
+    private void setSongsTAbleProperties(){
+        songtable.setEditable(true);
+        titleColumn.setCellValueFactory(new PropertyValueFactory<>("title"));
+        artistColumn.setCellValueFactory(new PropertyValueFactory<>("artist"));
+        timeColumn.setCellValueFactory(new PropertyValueFactory<>("time"));
+        songtable.setItems(data);
+        /*
+        playlisttable.setRowFactory(tv -> {
+            TableRow<Playlist> row = new TableRow<>();
+            row.setOnMouseClicked(event -> {
+                if (event.getClickCount()==2 && !row.isEmpty()){
+                    Playlist playlist = row.getItem();
+                    data = playlist.getSongs();
+                }
+            });
+            return row;
+        });
+         */
+    }
     public void openSongsSection(ActionEvent actionEvent) throws IOException {
         Stage primaryStage = (Stage) nextbtn.getScene().getWindow();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/View/MainView.fxml"));

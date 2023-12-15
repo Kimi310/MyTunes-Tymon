@@ -1,5 +1,6 @@
 package BLL;
 
+import BE.Playlist;
 import BE.Song;
 import DAL.DataBaseAccess;
 import javafx.collections.ObservableList;
@@ -31,5 +32,8 @@ public class DataHandler {
 
     public void createPlaylistTable(String name){
         dba.createPlaylistTable(name);
+    }
+    public void getAllPlaylists(ObservableList<Playlist> playlists){
+        dba.getAllPlaylists(playlists);
     }
 }

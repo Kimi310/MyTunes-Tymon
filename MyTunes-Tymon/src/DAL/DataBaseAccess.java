@@ -1,8 +1,10 @@
 package DAL;
 
+import BE.Playlist;
 import BE.Song;
 import com.microsoft.sqlserver.jdbc.SQLServerDataSource;
 import com.microsoft.sqlserver.jdbc.SQLServerException;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.Initializable;
 
@@ -136,6 +138,42 @@ public class DataBaseAccess{
             PreparedStatement st2 = con.prepareStatement(sql2);
             st2.setString(1,playlistName);
             st2.executeUpdate();
+        } catch (SQLServerException e) {
+            throw new RuntimeException(e);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void getAllPlaylists(ObservableList<Playlist> playlists){
+        SQLServerDataSource ds = new SQLServerDataSource();
+        ds.setDatabaseName("CSe22B_41_MyTunes_Group_A1");
+        ds.setUser("CSe2023b_e_26");
+        ds.setPassword("CSe2023bE26#23");
+        ds.setPortNumber(1433);
+        ds.setServerName("10.176.111.34");
+        ds.setTrustServerCertificate(true);
+        try{
+            Connection con = ds.getConnection();
+            String sql = "SELECT * FROM Playlists";
+            Statement st = con.createStatement();
+            ResultSet rs = st.executeQuery(sql);
+            while (rs.next()){
+                Playlist p = new Playlist(rs.getString("name"),rs.getInt("id"));
+                playlists.add(p);
+            }
+
+            for (Playlist p:playlists) {
+                String sql2 = "SELECT * FROM "+p.getName();
+                Statement statement = con.createStatement();
+                ResultSet resultSet = statement.executeQuery(sql2);
+                ObservableList<Song> songs = FXCollections.observableArrayList();
+                while (resultSet.next()){
+                    Song s = new Song(resultSet.getInt("id"),resultSet.getString("title"),resultSet.getString("artist"),resultSet.getString("category"), resultSet.getString("time"), resultSet.getString("path"));
+                    songs.add(s);
+                }
+                p.setSongs(songs);
+            }
         } catch (SQLServerException e) {
             throw new RuntimeException(e);
         } catch (SQLException e) {

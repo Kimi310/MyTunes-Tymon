@@ -14,7 +14,6 @@ public class CreatePlaylistViewController {
     @FXML
     private TextField nametxt;
     private DataHandler dh = new DataHandler();
-
     @FXML
     private void createNewPlaylist(ActionEvent actionEvent) {
         if (!nametxt.getText().isEmpty()){
