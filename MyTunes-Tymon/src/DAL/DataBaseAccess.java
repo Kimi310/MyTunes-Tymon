@@ -69,4 +69,40 @@ public class DataBaseAccess{
             throw new RuntimeException(e);
         }
     }
+
+    public void deleteSongFromDB(int id){
+        SQLServerDataSource ds = new SQLServerDataSource();
+        ds.setDatabaseName("CSe22B_41_MyTunes_Group_A1");
+        ds.setUser("CSe2023b_e_26");
+        ds.setPassword("CSe2023bE26#23");
+        ds.setPortNumber(1433);
+        ds.setServerName("10.176.111.34");
+        ds.setTrustServerCertificate(true);
+        try{
+            Connection con = ds.getConnection();
+            String sql = "DELETE FROM Songs WHERE id= ?";
+            PreparedStatement st = con.prepareStatement(sql);
+            st.setInt(1,id);
+            st.executeUpdate();
+        } catch (SQLServerException e) {
+            throw new RuntimeException(e);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    public void editSongOnIndex(int id){
+        SQLServerDataSource ds = new SQLServerDataSource();
+        ds.setDatabaseName("CSe22B_41_MyTunes_Group_A1");
+        ds.setUser("CSe2023b_e_26");
+        ds.setPassword("CSe2023bE26#23");
+        ds.setPortNumber(1433);
+        ds.setServerName("10.176.111.34");
+        ds.setTrustServerCertificate(true);
+        try{
+            Connection con = ds.getConnection();
+            String sql = ""
+        } catch (SQLServerException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

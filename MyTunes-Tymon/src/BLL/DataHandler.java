@@ -16,4 +16,12 @@ public class DataHandler {
     public void addSongToDB(Song song) throws SQLException {
         dba.addSongToDB(song);
     }
+    public void deleteSongFromDB(int id){
+        dba.deleteSongFromDB(id);
+    }
+
+    public void updateSongsFromDB(ObservableList<Song> data){
+        data.clear();
+        dba.getAllSongsFromDB(data);
+    }
 }

@@ -115,6 +115,7 @@ public class MainController implements Initializable {
 
     public void addSongToTable(Song song) throws SQLException {
         dh.addSongToDB(song);
+        dh.updateSongsFromDB(data);
     }
     public void playPauseMusicHandler(ActionEvent actionEvent) {
         player.playPause(playbtn);
@@ -211,20 +212,17 @@ public class MainController implements Initializable {
             Parent root = loader.load();
             AddSongViewController addSong = loader.getController();
             addSong.setParentController(this);
-            addSong.editInit(selectedSong,selectedSongIndex);
+            addSong.editInit(data,selectedSongIndex);
             primaryStage.setScene(new Scene(root));
             primaryStage.show();
         }
     }
 
-    public void changeSongOnIndex(int i, Song s){
-        data.set(i,s);
-    }
-
     public void deleteSongHandler(ActionEvent actionEvent) {
         selectedSong = songtable.getSelectionModel().getSelectedItem();
         if (selectedSong!=null && !data.isEmpty()){
-                data.remove(selectedSong);
+                dh.deleteSongFromDB(selectedSong.getId());
+                dh.updateSongsFromDB(data);
                 if (data.isEmpty() && player.getPlayer()!=null){
                     playinglbl.setText("Nothing is playing");
                     player.pausePlayer(playbtn);

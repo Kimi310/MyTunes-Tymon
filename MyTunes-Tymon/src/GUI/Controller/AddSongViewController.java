@@ -3,6 +3,7 @@ package GUI.Controller;
 import BE.Song;
 import BLL.AddingSongHandler;
 import com.microsoft.sqlserver.jdbc.SQLServerDataSource;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -30,11 +31,11 @@ public class AddSongViewController {
     @FXML
     private TextField filetxt;
     private boolean editing = false;
-    private Song editedSong;
     private AddingSongHandler handler = new AddingSongHandler();
     private int selectedSongIndex;
 
     private MainController controller = new MainController();
+    private ObservableList<Song> songs;
 
     public void addSongToList(ActionEvent actionEvent) throws SQLException {
         if (handler.checkNewSong(handler.textFieldsToString(titletxt,artisttxt,categorytxt,timetxt,filetxt))){
@@ -42,8 +43,11 @@ public class AddSongViewController {
                 Song song = new Song(titletxt.getText(),artisttxt.getText(),categorytxt.getText(),timetxt.getText(),filetxt.getText());
                 controller.addSongToTable(song);
             }else {
-                Song song = new Song(titletxt.getText(),artisttxt.getText(),categorytxt.getText(),timetxt.getText(),filetxt.getText());
-                controller.changeSongOnIndex(selectedSongIndex,song);
+                songs.get(selectedSongIndex).setArtist(artisttxt.getText());
+                songs.get(selectedSongIndex).setCategory(categorytxt.getText());
+                songs.get(selectedSongIndex).setFile(filetxt.getText());
+                songs.get(selectedSongIndex).setTime(timetxt.getText());
+                songs.get(selectedSongIndex).setTitle(titletxt.getText());
             }
             Stage stage = (Stage) filetxt.getScene().getWindow();
             stage.close();
@@ -51,15 +55,15 @@ public class AddSongViewController {
             errorlbl.setVisible(true);
         }
     }
-    public void editInit(Song s, int selectedSongIndex){
+    public void editInit(ObservableList<Song> data, int selectedSongIndex){
         this.selectedSongIndex = selectedSongIndex;
         editing = true;
-        editedSong = s;
-        categorytxt.setText(s.getCategory());
-        titletxt.setText(s.getTitle());
-        timetxt.setText(s.getTime());
-        artisttxt.setText(s.getArtist());
-        filetxt.setText(s.getFile());
+        songs = data;
+        categorytxt.setText(data.get(selectedSongIndex).getCategory());
+        titletxt.setText(data.get(selectedSongIndex).getTitle());
+        timetxt.setText(data.get(selectedSongIndex).getTime());
+        artisttxt.setText(data.get(selectedSongIndex).getArtist());
+        filetxt.setText(data.get(selectedSongIndex).getFile());
     }
     public void setParentController (MainController controller){
         this.controller = controller;
