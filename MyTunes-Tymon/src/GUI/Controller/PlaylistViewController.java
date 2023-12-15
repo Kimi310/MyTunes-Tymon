@@ -51,7 +51,7 @@ public class PlaylistViewController implements Initializable {
     @FXML
     private Label playinglbl;
     @FXML
-    private TableView<Song> songtable;
+    private TableView<Song> songstable;
     @FXML
     private TableColumn<Song,String> titleColumn;
     @FXML
@@ -103,11 +103,12 @@ public class PlaylistViewController implements Initializable {
         });
     }
     private void setSongsTAbleProperties(){
-        songtable.setEditable(true);
+        songstable.setEditable(true);
         titleColumn.setCellValueFactory(new PropertyValueFactory<>("title"));
         artistColumn.setCellValueFactory(new PropertyValueFactory<>("artist"));
         timeColumn.setCellValueFactory(new PropertyValueFactory<>("time"));
-        songtable.setItems(data);
+        data.add(new Song("a","a","a","a","a"));
+        songstable.setItems(data);
         /*
         playlisttable.setRowFactory(tv -> {
             TableRow<Playlist> row = new TableRow<>();
