@@ -131,7 +131,7 @@ public class DataBaseAccess{
             String sql = "CREATE TABLE "+playlistName+"(id INT, title nvarchar(250), artist nvarchar(250),category nvarchar(250),time nvarchar(10),path nvarchar(250))";
             PreparedStatement st = con.prepareStatement(sql);
             st.executeUpdate();
-            String sql1 = "ALTER TABLE "+playlistName+" ADD FOREIGN KEY (id) REFERENCES Songs(id)";
+            String sql1 = "ALTER TABLE "+playlistName+" ADD CONSTRAINT fk_id_"+playlistName+"_id FOREIGN KEY (id) REFERENCES Songs(id) ON DELETE CASCADE";
             PreparedStatement st1 = con.prepareStatement(sql1);
             st1.executeUpdate();
             String sql2 = "INSERT INTO Playlists (name) VALUES (?)";
@@ -174,6 +174,27 @@ public class DataBaseAccess{
                 }
                 p.setSongs(songs);
             }
+        } catch (SQLServerException e) {
+            throw new RuntimeException(e);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void deleteTable(Playlist playlist){
+        SQLServerDataSource ds = new SQLServerDataSource();
+        ds.setDatabaseName("CSe22B_41_MyTunes_Group_A1");
+        ds.setUser("CSe2023b_e_26");
+        ds.setPassword("CSe2023bE26#23");
+        ds.setPortNumber(1433);
+        ds.setServerName("10.176.111.34");
+        ds.setTrustServerCertificate(true);
+        try{
+            Connection con = ds.getConnection();
+            String sql = "DROP TABLE "+playlist.getName()+"; DELETE FROM Playlists WHERE name=?;";
+            PreparedStatement st = con.prepareStatement(sql);
+            st.setString(1,playlist.getName());
+            st.executeUpdate();
         } catch (SQLServerException e) {
             throw new RuntimeException(e);
         } catch (SQLException e) {

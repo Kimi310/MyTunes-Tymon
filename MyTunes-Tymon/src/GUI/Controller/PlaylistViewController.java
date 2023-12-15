@@ -65,6 +65,7 @@ public class PlaylistViewController implements Initializable {
     private final ObservableList<Playlist> playlists = FXCollections.observableArrayList();
     private ObservableList<Song> data = FXCollections.observableArrayList();
     private DataHandler dh = new DataHandler();
+    private Playlist selectedPlaylist;
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         setButtons();
@@ -95,8 +96,8 @@ public class PlaylistViewController implements Initializable {
             row.setOnMouseClicked(event -> {
                 if (event.getClickCount()==2 && !row.isEmpty()){
                     Playlist playlist = row.getItem();
-                    data = playlist.getSongs();
-                    System.out.println(data.get(0));
+                    data.clear();
+                    data.addAll(playlist.getSongs());
                 }
             });
             return row;
@@ -107,7 +108,6 @@ public class PlaylistViewController implements Initializable {
         titleColumn.setCellValueFactory(new PropertyValueFactory<>("title"));
         artistColumn.setCellValueFactory(new PropertyValueFactory<>("artist"));
         timeColumn.setCellValueFactory(new PropertyValueFactory<>("time"));
-        data.add(new Song("a","a","a","a","a"));
         songstable.setItems(data);
         /*
         playlisttable.setRowFactory(tv -> {
@@ -141,11 +141,24 @@ public class PlaylistViewController implements Initializable {
         deleteSongFromPlaylistbtn.setGraphic(new ImageView("Images/delete.png"));
     }
 
-    public void createNewPlaylistPopUp(ActionEvent actionEvent) throws IOException {
+    @FXML
+    private void createNewPlaylistPopUp(ActionEvent actionEvent) throws IOException {
         Stage primaryStage = new Stage();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/View/CreatePlaylistView.fxml"));
         Parent root = loader.load();
         primaryStage.setScene(new Scene(root));
         primaryStage.show();
     }
+    @FXML
+    private void deletePlaylistFromDB(ActionEvent actionEvent) {
+        System.out.println("it works");
+         selectedPlaylist = playlisttable.getSelectionModel().getSelectedItem();
+        if (selectedPlaylist!=null && !playlists.isEmpty()){
+            System.out.println("2");
+            dh.deletePlaylist(selectedPlaylist);
+            playlists.clear();
+            dh.getAllPlaylists(playlists);
+        }
+    }
 }
+

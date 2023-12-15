@@ -36,4 +36,7 @@ public class DataHandler {
     public void getAllPlaylists(ObservableList<Playlist> playlists){
         dba.getAllPlaylists(playlists);
     }
+    public void deletePlaylist(Playlist p){
+        dba.deleteTable(p);
+    }
 }
