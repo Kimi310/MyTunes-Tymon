@@ -221,4 +221,30 @@ public class DataBaseAccess{
             throw new RuntimeException(e);
         }
     }
+
+    public void addSongToPlaylist(String playlistName, Song s){
+        SQLServerDataSource ds = new SQLServerDataSource();
+        ds.setDatabaseName("CSe22B_41_MyTunes_Group_A1");
+        ds.setUser("CSe2023b_e_26");
+        ds.setPassword("CSe2023bE26#23");
+        ds.setPortNumber(1433);
+        ds.setServerName("10.176.111.34");
+        ds.setTrustServerCertificate(true);
+        try{
+            Connection con = ds.getConnection();
+            String sql = "INSERT INTO "+playlistName+" (id, title, artist, category, time,path) VALUES (?,?,?,?,?,?)";
+            PreparedStatement st = con.prepareStatement(sql);
+            st.setInt(1,s.getId());
+            st.setString(2,s.getTitle());
+            st.setString(3,s.getArtist());
+            st.setString(4,s.getCategory());
+            st.setString(5,s.getTime());
+            st.setString(6,s.getFile());
+            st.executeUpdate();
+        } catch (SQLServerException e) {
+            throw new RuntimeException(e);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

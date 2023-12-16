@@ -17,6 +17,7 @@ import javafx.stage.Stage;
 import javafx.stage.FileChooser.ExtensionFilter;
 import java.io.File;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class AddSongViewController {
     @FXML
@@ -35,7 +36,6 @@ public class AddSongViewController {
     private AddingSongHandler handler = new AddingSongHandler();
     private int selectedSongIndex;
     DataHandler dh = new DataHandler();
-
     private MainController controller = new MainController();
 
     public void addSongToList(ActionEvent actionEvent) throws SQLException {

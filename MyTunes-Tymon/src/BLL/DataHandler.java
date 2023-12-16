@@ -42,4 +42,7 @@ public class DataHandler {
     public void changePlaylistName(String oldPlaylistName,String newPlaylistName){
         dba.changePlaylistsName(oldPlaylistName,newPlaylistName);
     }
+    public void addSongToPlaylist(String playlistName, Song s){
+        dba.addSongToPlaylist(playlistName,s);
+    }
 }

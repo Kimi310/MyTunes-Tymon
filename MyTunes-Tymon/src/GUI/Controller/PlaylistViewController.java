@@ -95,7 +95,7 @@ public class PlaylistViewController implements Initializable {
         playlisttable.setRowFactory(tv -> {
             TableRow<Playlist> row = new TableRow<>();
             row.setOnMouseClicked(event -> {
-                if (event.getClickCount()==2 && !row.isEmpty()){
+                if (event.getClickCount()==1 && !row.isEmpty()){
                     Playlist playlist = row.getItem();
                     data.clear();
                     data.addAll(playlist.getSongs());
@@ -159,6 +159,7 @@ public class PlaylistViewController implements Initializable {
             dh.deletePlaylist(selectedPlaylist);
             playlists.clear();
             dh.getAllPlaylists(playlists);
+            data.clear();
         }
     }
     public void editPlaylistNameDataAccess(String oldName, String newName){
@@ -177,6 +178,31 @@ public class PlaylistViewController implements Initializable {
             primaryStage.setScene(new Scene(root));
             primaryStage.show();
         }
+    }
+
+    @FXML
+    private void addSongToPlaylist(ActionEvent actionEvent) throws IOException {
+        selectedPlaylist = playlisttable.getSelectionModel().getSelectedItem();
+        if (selectedPlaylist!=null && !playlists.isEmpty()){
+            Stage primaryStage = new Stage();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/View/AddSongToPlaylistView.fxml"));
+            Parent root = loader.load();
+            AddSongToPlaylistViewController controller = loader.getController();
+            controller.setController(this);
+            controller.getPlaylistName(selectedPlaylist.getName());
+            controller.excludeAlreadyAddedSongs(selectedPlaylist.getSongs());
+            controller.poluteData();
+            primaryStage.setScene(new Scene(root));
+            primaryStage.show();
+        }
+    }
+    public void updateDataWhenSelected(){
+        data.clear();
+        playlists.clear();
+        dh.getAllPlaylists(playlists);
+    }
+    @FXML
+    private void deleteSongFromPlaylist(ActionEvent actionEvent) {
     }
 }
 
