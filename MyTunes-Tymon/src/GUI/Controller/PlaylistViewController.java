@@ -84,7 +84,8 @@ public class PlaylistViewController implements Initializable {
     public void playPrevSong(ActionEvent actionEvent) {
 
     }
-    private void polutePlaylistsObservableList(){
+    public void polutePlaylistsObservableList(){
+        playlists.clear();
         dh.getAllPlaylists(playlists);
     }
     private void setPlaylistsTAbleProperties(){
@@ -146,18 +147,35 @@ public class PlaylistViewController implements Initializable {
         Stage primaryStage = new Stage();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/View/CreatePlaylistView.fxml"));
         Parent root = loader.load();
+        CreatePlaylistViewController controller = loader.getController();
+        controller.setParentController(this);
         primaryStage.setScene(new Scene(root));
         primaryStage.show();
     }
     @FXML
     private void deletePlaylistFromDB(ActionEvent actionEvent) {
-        System.out.println("it works");
-         selectedPlaylist = playlisttable.getSelectionModel().getSelectedItem();
+        selectedPlaylist = playlisttable.getSelectionModel().getSelectedItem();
         if (selectedPlaylist!=null && !playlists.isEmpty()){
-            System.out.println("2");
             dh.deletePlaylist(selectedPlaylist);
             playlists.clear();
             dh.getAllPlaylists(playlists);
+        }
+    }
+    public void editPlaylistNameDataAccess(String oldName, String newName){
+        dh.changePlaylistName(oldName,newName);
+    }
+    @FXML
+    private void editPlaylistsName(ActionEvent actionEvent) throws IOException {
+        selectedPlaylist = playlisttable.getSelectionModel().getSelectedItem();
+        if (selectedPlaylist!=null && !playlists.isEmpty()) {
+            Stage primaryStage = new Stage();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/View/CreatePlaylistView.fxml"));
+            Parent root = loader.load();
+            CreatePlaylistViewController controller = loader.getController();
+            controller.setEditPlaylistOnInit(selectedPlaylist.getName());
+            controller.setParentController(this);
+            primaryStage.setScene(new Scene(root));
+            primaryStage.show();
         }
     }
 }

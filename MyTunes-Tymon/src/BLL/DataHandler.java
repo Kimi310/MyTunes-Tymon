@@ -39,4 +39,7 @@ public class DataHandler {
     public void deletePlaylist(Playlist p){
         dba.deleteTable(p);
     }
+    public void changePlaylistName(String oldPlaylistName,String newPlaylistName){
+        dba.changePlaylistsName(oldPlaylistName,newPlaylistName);
+    }
 }

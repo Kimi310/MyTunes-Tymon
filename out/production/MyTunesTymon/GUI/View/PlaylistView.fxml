@@ -34,12 +34,12 @@
                         <Insets right="10.0" />
                     </HBox.margin>
                 </Button>
-                <Button fx:id="editPlaylistbtn" mnemonicParsing="false" prefHeight="26.0" prefWidth="60.0">
+                <Button fx:id="editPlaylistbtn" mnemonicParsing="false" onAction="#editPlaylistsName" prefHeight="26.0" prefWidth="60.0">
                     <HBox.margin>
                         <Insets right="10.0" />
                     </HBox.margin>
                 </Button>
-                <Button fx:id="deletePlaylistbtn" mnemonicParsing="false" prefHeight="26.0" prefWidth="60.0" />
+                <Button fx:id="deletePlaylistbtn" mnemonicParsing="false" onAction="#deletePlaylistFromDB" prefHeight="26.0" prefWidth="60.0" />
             <HBox alignment="TOP_RIGHT" prefHeight="26.0" prefWidth="170.0">
                <children>
                   <Button fx:id="addSongToPlaylistbtn" mnemonicParsing="false" prefHeight="26.0" prefWidth="60.0">

@@ -201,4 +201,24 @@ public class DataBaseAccess{
             throw new RuntimeException(e);
         }
     }
+
+    public void changePlaylistsName(String oldPlaylist, String newPlaylist){
+        SQLServerDataSource ds = new SQLServerDataSource();
+        ds.setDatabaseName("CSe22B_41_MyTunes_Group_A1");
+        ds.setUser("CSe2023b_e_26");
+        ds.setPassword("CSe2023bE26#23");
+        ds.setPortNumber(1433);
+        ds.setServerName("10.176.111.34");
+        ds.setTrustServerCertificate(true);
+        try{
+            Connection con = ds.getConnection();
+            String sql = "EXEC sp_rename '"+oldPlaylist+"', '" +newPlaylist +"';"+"UPDATE Playlists SET name='"+newPlaylist+"' WHERE name='"+oldPlaylist+"'";
+            PreparedStatement st = con.prepareStatement(sql);
+            st.executeUpdate();
+        } catch (SQLServerException e) {
+            throw new RuntimeException(e);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

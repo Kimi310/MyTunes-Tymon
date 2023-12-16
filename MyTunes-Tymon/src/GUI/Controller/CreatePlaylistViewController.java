@@ -14,14 +14,32 @@ public class CreatePlaylistViewController {
     @FXML
     private TextField nametxt;
     private DataHandler dh = new DataHandler();
+    PlaylistViewController controller;
+    String oldName;
+    private boolean editing = false;
     @FXML
     private void createNewPlaylist(ActionEvent actionEvent) {
-        if (!nametxt.getText().isEmpty()){
+        if (!nametxt.getText().isEmpty() && !editing){
             dh.createPlaylistTable(nametxt.getText());
             Stage stage = (Stage) nametxt.getScene().getWindow();
+            controller.polutePlaylistsObservableList();
             stage.close();
-        }else {
+        } else if (!nametxt.getText().isEmpty() && editing) {
+            controller.editPlaylistNameDataAccess(oldName,nametxt.getText());
+            Stage stage = (Stage) nametxt.getScene().getWindow();
+            controller.polutePlaylistsObservableList();
+            stage.close();
+        } else {
             errorlbl.setVisible(true);
         }
+    }
+    public void setParentController(PlaylistViewController controller){
+        this.controller = controller;
+    }
+
+    public void setEditPlaylistOnInit(String oldName){
+        editing=true;
+        this.oldName = oldName;
+        nametxt.setText(oldName);
     }
 }
