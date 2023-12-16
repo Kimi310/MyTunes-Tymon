@@ -1,15 +1,13 @@
 package BLL;
 
-import BE.Song;
+import GUI.Controller.MainController;
 import javafx.scene.control.Button;
-import javafx.scene.control.ProgressBar;
 import javafx.scene.control.Slider;
 import javafx.scene.image.ImageView;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 
 import java.io.File;
-import java.util.Objects;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -20,26 +18,30 @@ public class MusicPlayer {
     private Timer timer;
     private TimerTask timerTask;
 
-    public void playNewSong(String file, Button playButton){ // plays new song from the list
+    public void playNewSong(String file, Button playButton, Slider progressSlider, Slider volumeSlider){ // plays new song from the list
         if (!playing){
+            if (timer!=null){
+                cancelTimer();
+            }
             playButton.setGraphic(new ImageView("Images/pause.png"));
             sound = new Media(new File(file).toURI().toString());
             player = new MediaPlayer(sound);
             player.play();
+            beginTimer(progressSlider);
+            player.setVolume(volumeSlider.getValue() * 0.01);
             playing=true;
+        }else {
             if (timer!=null){
                 cancelTimer();
             }
-        }else {
             player.stop();
             playButton.setGraphic(new ImageView("Images/pause.png"));
             sound = new Media(new File(file).toURI().toString());
             player = new MediaPlayer(sound);
             player.play();
+            beginTimer(progressSlider);
+            player.setVolume(volumeSlider.getValue() * 0.01);
             playing=true;
-            if (timer!=null){
-                cancelTimer();
-            }
         }
     }
     public void playPause (Button playButton){
@@ -62,7 +64,7 @@ public class MusicPlayer {
         return player;
     }
 
-    public void beginTimer(Slider progressSlider){
+    private void beginTimer(Slider progressSlider){
         timer = new Timer();
         timerTask = new TimerTask() {
             @Override
@@ -72,7 +74,6 @@ public class MusicPlayer {
                     progressSlider.setMax(end);
                     progressSlider.setValue(current);
                     if (current/end == 1){
-                        progressSlider.disableProperty().set(true);
                         cancelTimer();
                     }
             }
@@ -87,9 +88,5 @@ public class MusicPlayer {
         player.pause();
         playButton.setGraphic(new ImageView("Images/pause.png"));
         playing=false;
-    }
-
-    public String getCurrentSongURI(){
-        return sound.getSource();
     }
 }

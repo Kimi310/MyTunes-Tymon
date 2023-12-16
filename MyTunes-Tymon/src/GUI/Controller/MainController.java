@@ -175,13 +175,7 @@ public class MainController implements Initializable {
     }
 
     public void playNextSong(ActionEvent actionEvent) {
-        if (currentSongIndex != data.size()-1){
-            Song nextSong = data.get(currentSongIndex+1);
-            beginSongHandler(nextSong);
-        }else {
-            Song nextSong = data.get(0);
-            beginSongHandler(nextSong);
-        }
+        nextSong();
     }
 
     public void beginSongHandler(Song rowSong){ // initializes new song to be played
@@ -191,11 +185,11 @@ public class MainController implements Initializable {
                 break;
             }
         }
-        player.playNewSong(rowSong.getFile(),playbtn);
-        player.beginTimer(progressslider);
+        playinglbl.setText(rowSong.getTitle());
+        player.playNewSong(rowSong.getFile(),playbtn,progressslider,volumeSlider);
         progressslider.disableProperty().set(false);
         volumeSlider.disableProperty().set(false);
-        playinglbl.setText(rowSong.getTitle());
+        setter.setNextSongPlayer(player,this);
     }
 
     public void editSongHandler(ActionEvent actionEvent) throws IOException {
@@ -244,5 +238,14 @@ public class MainController implements Initializable {
     public void poluteData(){
         data.clear();
         dh.getAllSongsFromDB(data);
+    }
+    public void nextSong(){
+        if (currentSongIndex != data.size()-1){
+            Song nextSong = data.get(currentSongIndex+1);
+            beginSongHandler(nextSong);
+        }else {
+            Song nextSong = data.get(0);
+            beginSongHandler(nextSong);
+        }
     }
 }

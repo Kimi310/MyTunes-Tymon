@@ -67,6 +67,7 @@ public class PlaylistViewController implements Initializable {
     private DataHandler dh = new DataHandler();
     private Playlist selectedPlaylist;
     private Song selectedSong;
+    private int currentSongIndex;
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         setButtons();
@@ -213,5 +214,21 @@ public class PlaylistViewController implements Initializable {
             }
         }
     }
+    /*
+    public void beginSongHandler(Song rowSong){ // initializes new song to be played
+        for (int i=0;i<data.size();i++) {
+            if (data.get(i) == rowSong){
+                currentSongIndex = i;
+                break;
+            }
+        }
+        player.playNewSong(rowSong.getFile(),playbtn);
+        player.beginTimer(progressslider);
+        progressslider.disableProperty().set(false);
+        volumeSlider.disableProperty().set(false);
+        playinglbl.setText(rowSong.getTitle());
+    }
+
+     */
 }
 
