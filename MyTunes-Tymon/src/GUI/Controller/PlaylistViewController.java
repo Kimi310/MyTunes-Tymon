@@ -66,6 +66,7 @@ public class PlaylistViewController implements Initializable {
     private ObservableList<Song> data = FXCollections.observableArrayList();
     private DataHandler dh = new DataHandler();
     private Playlist selectedPlaylist;
+    private Song selectedSong;
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         setButtons();
@@ -203,6 +204,14 @@ public class PlaylistViewController implements Initializable {
     }
     @FXML
     private void deleteSongFromPlaylist(ActionEvent actionEvent) {
+        selectedPlaylist = playlisttable.getSelectionModel().getSelectedItem();
+        if (selectedPlaylist!=null && !playlists.isEmpty()){
+            selectedSong = songstable.getSelectionModel().getSelectedItem();
+            if (selectedSong!=null && !data.isEmpty()){
+                dh.removeSongFromPlaylist(selectedPlaylist.getName(),selectedSong);
+                updateDataWhenSelected();
+            }
+        }
     }
 }
 

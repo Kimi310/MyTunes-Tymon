@@ -45,4 +45,7 @@ public class DataHandler {
     public void addSongToPlaylist(String playlistName, Song s){
         dba.addSongToPlaylist(playlistName,s);
     }
+    public void removeSongFromPlaylist(String playlistName,Song song){
+        dba.removeSongFromPlaylist(playlistName,song);
+    }
 }
