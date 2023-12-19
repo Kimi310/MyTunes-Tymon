@@ -13,46 +13,46 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane prefHeight="462.0" prefWidth="781.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.Controller.MainController">
+<AnchorPane prefHeight="462.0" prefWidth="781.0" style="-fx-background-color: #D1C9DC;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.Controller.MainController">
    <children>
       <Slider fx:id="volumeSlider" layoutX="617.0" layoutY="423.0" max="200.0" prefHeight="14.0" prefWidth="118.0" value="100.0" />
-      <Button fx:id="playbtn" alignment="CENTER" layoutX="77.0" layoutY="408.0" mnemonicParsing="false" onAction="#playPauseMusicHandler" prefHeight="45.0" prefWidth="43.0" />
-      <Button fx:id="nextbtn" alignment="CENTER" layoutX="126.0" layoutY="415.0" mnemonicParsing="false" onAction="#playNextSong" prefHeight="34.0" prefWidth="43.0" />
-      <Button fx:id="prevbtn" alignment="CENTER" layoutX="28.0" layoutY="415.0" mnemonicParsing="false" onAction="#playPrevSong" prefHeight="34.0" prefWidth="43.0" />
+      <Button fx:id="playbtn" alignment="CENTER" layoutX="81.0" layoutY="408.0" mnemonicParsing="false" onAction="#playPauseMusicHandler" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: #8B75AA; -fx-background-radius: 30px; -fx-border-radius: 30px;" />
+      <Button fx:id="nextbtn" alignment="CENTER" layoutX="132.0" layoutY="408.0" mnemonicParsing="false" onAction="#playNextSong" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: #8B75AA; -fx-background-radius: 30px; -fx-border-radius: 30px;" />
+      <Button fx:id="prevbtn" alignment="CENTER" layoutX="28.0" layoutY="408.0" mnemonicParsing="false" onAction="#playPrevSong" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: #8B75AA; -fx-background-radius: 30px; -fx-border-radius: 30px;" />
       <VBox layoutX="611.0" layoutY="70.0" prefHeight="144.0" prefWidth="157.0">
          <children>
-            <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="158.0" text="Songs">
+            <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="158.0" style="-fx-background-color: #674892; -fx-background-radius: 20px; -fx-border-radius: 20px;" text="Songs" textFill="WHITE">
                <VBox.margin>
                   <Insets bottom="10.0" />
                </VBox.margin></Button>
-            <Button mnemonicParsing="false" onAction="#openPlaylistSeciton" prefHeight="26.0" prefWidth="161.0" text="Playlists" />
+            <Button mnemonicParsing="false" onAction="#openPlaylistSeciton" prefHeight="26.0" prefWidth="161.0" style="-fx-background-color: #674892; -fx-background-radius: 20px; -fx-border-radius: 20px;" text="Playlists" textFill="WHITE" />
          </children>
       </VBox>
       <HBox alignment="CENTER_LEFT" layoutX="28.0" layoutY="30.0" prefHeight="26.0" prefWidth="607.0">
          <children>
-            <Button fx:id="addbtn" mnemonicParsing="false" onAction="#addSong" prefHeight="26.0" prefWidth="60.0">
+            <Button fx:id="addbtn" mnemonicParsing="false" onAction="#addSong" prefHeight="26.0" prefWidth="60.0" style="-fx-background-radius: 20px; -fx-border-radius: 20px; -fx-background-color: #8B75AA;">
                <HBox.margin>
                   <Insets right="10.0" />
                </HBox.margin>
             </Button>
-            <Button fx:id="editbtn" mnemonicParsing="false" onAction="#editSongHandler" prefHeight="26.0" prefWidth="60.0">
+            <Button fx:id="editbtn" mnemonicParsing="false" onAction="#editSongHandler" prefHeight="26.0" prefWidth="60.0" style="-fx-background-radius: 20px; -fx-border-radius: 20px; -fx-background-color: #8B75AA;">
                <HBox.margin>
                   <Insets right="10.0" />
                </HBox.margin>
             </Button>
-            <Button fx:id="deletebtn" mnemonicParsing="false" onAction="#deleteSongHandler" prefHeight="26.0" prefWidth="60.0" />
+            <Button fx:id="deletebtn" mnemonicParsing="false" onAction="#deleteSongHandler" prefHeight="26.0" prefWidth="60.0" style="-fx-background-radius: 20px; -fx-border-radius: 20px; -fx-background-color: #8B75AA;" />
             <HBox alignment="CENTER_RIGHT" prefHeight="26.0" prefWidth="360.0">
                <children>
-                  <TextField fx:id="filtertxt" prefHeight="25.0" prefWidth="118.0" promptText="Filter...">
+                  <TextField fx:id="filtertxt" prefHeight="25.0" prefWidth="118.0" promptText="Filter..." style="-fx-background-radius: 20px; -fx-border-radius: 20px;">
                      <HBox.margin>
                         <Insets right="10.0" />
                      </HBox.margin>
                   </TextField>
-                  <Button mnemonicParsing="false" onAction="#filterTableHandler" text="Filter">
+                  <Button mnemonicParsing="false" onAction="#filterTableHandler" prefHeight="25.0" prefWidth="56.0" style="-fx-background-color: #8B75AA; -fx-background-radius: 20px; -fx-border-radius: 20px;" text="Filter">
                      <HBox.margin>
                         <Insets right="10.0" />
                      </HBox.margin></Button>
-                  <Button mnemonicParsing="false" onAction="#resetFilter" text="Reset" />
+                  <Button mnemonicParsing="false" onAction="#resetFilter" prefHeight="25.0" prefWidth="56.0" style="-fx-background-color: #8B75AA; -fx-background-radius: 20px; -fx-border-radius: 20px;" text="Reset" />
                </children>
             </HBox>
          </children>

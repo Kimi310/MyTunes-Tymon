@@ -5,8 +5,7 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-
-<AnchorPane prefHeight="265.0" prefWidth="421.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.Controller.AddSongToPlaylistViewController">
+<AnchorPane prefHeight="265.0" prefWidth="421.0" style="-fx-background-color: #D1C9DC;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.Controller.AddSongToPlaylistViewController">
    <children>
       <TableView fx:id="songChoicetable" layoutX="21.0" layoutY="14.0" prefHeight="200.0" prefWidth="380.0">
         <columns>
@@ -15,6 +14,6 @@
             <TableColumn fx:id="timeColumn" prefWidth="83.0" text="Time" />
         </columns>
       </TableView>
-      <Button layoutX="334.0" layoutY="226.0" mnemonicParsing="false" onAction="#addSongToPlaylist" prefHeight="25.0" prefWidth="60.0" text="Add" />
+      <Button layoutX="334.0" layoutY="226.0" mnemonicParsing="false" onAction="#addSongToPlaylist" prefHeight="25.0" prefWidth="60.0" style="-fx-background-radius: 20px; -fx-border-radius: 20px; -fx-background-color: #8B75AA;" text="Add" />
    </children>
 </AnchorPane>

@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane prefHeight="236.0" prefWidth="426.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.Controller.AddSongViewController">
+<AnchorPane prefHeight="236.0" prefWidth="426.0" style="-fx-background-color: #D1C9DC;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.Controller.AddSongViewController">
    <children>
       <VBox alignment="TOP_RIGHT" layoutY="-1.0" prefHeight="200.0" prefWidth="100.0">
          <children>
@@ -40,35 +40,35 @@
       </VBox>
       <VBox layoutX="120.0" layoutY="3.0" prefHeight="200.0" prefWidth="208.0">
          <children>
-            <TextField fx:id="titletxt">
+            <TextField fx:id="titletxt" style="-fx-background-radius: 20px; -fx-border-radius: 20px;">
                <VBox.margin>
                   <Insets top="10.0" />
                </VBox.margin>
             </TextField>
-            <TextField fx:id="artisttxt" prefHeight="25.0" prefWidth="208.0">
+            <TextField fx:id="artisttxt" prefHeight="25.0" prefWidth="208.0" style="-fx-background-radius: 20px; -fx-border-radius: 20px;">
                <VBox.margin>
                   <Insets top="10.0" />
                </VBox.margin>
             </TextField>
-            <TextField fx:id="categorytxt">
+            <TextField fx:id="categorytxt" style="-fx-background-radius: 20px; -fx-border-radius: 20px;">
                <VBox.margin>
                   <Insets top="15.0" />
                </VBox.margin>
             </TextField>
-            <TextField fx:id="timetxt">
+            <TextField fx:id="timetxt" style="-fx-background-radius: 20px; -fx-border-radius: 20px;">
                <VBox.margin>
                   <Insets top="13.0" />
                </VBox.margin>
             </TextField>
-            <TextField fx:id="filetxt" prefHeight="25.0" prefWidth="194.0">
+            <TextField fx:id="filetxt" prefHeight="25.0" prefWidth="194.0" style="-fx-background-radius: 20px; -fx-border-radius: 20px;">
                <VBox.margin>
                   <Insets top="11.0" />
                </VBox.margin>
             </TextField>
          </children>
       </VBox>
-      <Button layoutX="258.0" layoutY="199.0" mnemonicParsing="false" onAction="#addSongToList" prefHeight="25.0" prefWidth="70.0" text="Add" />
+      <Button layoutX="258.0" layoutY="199.0" mnemonicParsing="false" onAction="#addSongToList" prefHeight="25.0" prefWidth="70.0" style="-fx-background-radius: 20px; -fx-border-radius: 20px; -fx-background-color: #8B75AA;" text="Add" />
       <Label fx:id="errorlbl" layoutX="120.0" layoutY="203.0" prefHeight="17.0" prefWidth="135.0" text="Your data is incorrect" textFill="RED" visible="false" />
-      <Button layoutX="342.0" layoutY="161.0" mnemonicParsing="false" onAction="#chooseFile" prefHeight="25.0" prefWidth="70.0" text="Choose" />
+      <Button layoutX="342.0" layoutY="161.0" mnemonicParsing="false" onAction="#chooseFile" prefHeight="25.0" prefWidth="70.0" style="-fx-background-radius: 20px; -fx-border-radius: 20px; -fx-background-color: #8B75AA;" text="Choose" />
    </children>
 </AnchorPane>
