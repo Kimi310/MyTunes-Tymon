@@ -107,7 +107,7 @@ public class PlaylistViewController implements Initializable {
             row.setOnMouseClicked(event -> {
                 if (event.getClickCount()==1 && !row.isEmpty()){
                     if (player.getPlayer()!=null){
-                        player.pausePlayer(playbtn);
+                        player.pausePlayer(playbtn,playinglbl);
                     }
                     Playlist playlist = row.getItem();
                     data.clear();
@@ -143,7 +143,7 @@ public class PlaylistViewController implements Initializable {
         Stage primaryStage = (Stage) nextbtn.getScene().getWindow();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/View/MainView.fxml"));
         Parent root = loader.load();
-        player.pausePlayer(playbtn);
+        player.pausePlayer(playbtn, playinglbl);
         primaryStage.setScene(new Scene(root));
         primaryStage.show();
     }
@@ -229,6 +229,7 @@ public class PlaylistViewController implements Initializable {
         if (selectedPlaylist!=null && !playlists.isEmpty()){
             selectedSong = songstable.getSelectionModel().getSelectedItem();
             if (selectedSong!=null && !data.isEmpty()){
+                player.pausePlayer(playbtn, playinglbl);
                 dh.removeSongFromPlaylist(selectedPlaylist.getName(),selectedSong);
                 updateDataWhenSelected();
             }

@@ -202,7 +202,7 @@ public class MainController implements Initializable {
                 dh.updateSongsFromDB(data);
                 if (data.isEmpty() && player.getPlayer()!=null){
                     playinglbl.setText("Nothing is playing");
-                    player.pausePlayer(playbtn);
+                    player.pausePlayer(playbtn, playinglbl);
                 }else if (player.getPlayer()!=null){
                     if (currentSongIndex != data.size()-1){
                         Song nextSong = data.get(currentSongIndex+1);
@@ -219,7 +219,7 @@ public class MainController implements Initializable {
         Stage primaryStage = (Stage) nextbtn.getScene().getWindow();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/View/PlaylistView.fxml"));
         Parent root = loader.load();
-        player.pausePlayer(playbtn);
+        player.pausePlayer(playbtn, playinglbl);
         primaryStage.setScene(new Scene(root));
         primaryStage.show();
     }

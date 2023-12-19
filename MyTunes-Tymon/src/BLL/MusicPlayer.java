@@ -2,6 +2,7 @@ package BLL;
 
 import GUI.Controller.MainController;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.image.ImageView;
 import javafx.scene.media.Media;
@@ -84,9 +85,10 @@ public class MusicPlayer {
         timer.cancel();
     }
 
-    public void pausePlayer(Button playButton){
+    public void pausePlayer(Button playButton, Label playlbl){
         if (player!=null){
             player.pause();
+            playlbl.setText("Nothing is playing");
             playButton.setGraphic(new ImageView("Images/pause.png"));
             playing=false;
         }
