@@ -78,28 +78,9 @@ public class MainController implements Initializable {
         setTablePropertiesOnInit();
         setter.setVolumeListener(volumeSlider,player);
         setter.setProgressOnMouse(progressslider,player);
-        setDataListener();
+        setter.setDataListener(data,progressslider,volumeSlider,playbtn,nextbtn,prevbtn);
         progressslider.disableProperty().set(true);
         volumeSlider.disableProperty().set(true);
-    }
-
-    private void setDataListener() {
-        data.addListener(new ListChangeListener<Song>() {
-            @Override
-            public void onChanged(Change<? extends Song> c) {
-                if (data.isEmpty()){
-                    progressslider.disableProperty().set(true);
-                    volumeSlider.disableProperty().set(true);
-                    playbtn.setDisable(true);
-                    nextbtn.setDisable(true);
-                    prevbtn.setDisable(true);
-                }else {
-                    playbtn.setDisable(false);
-                    nextbtn.setDisable(false);
-                    prevbtn.setDisable(false);
-                }
-            }
-        });
     }
 
     @FXML
@@ -117,7 +98,8 @@ public class MainController implements Initializable {
         dh.addSongToDB(song);
         dh.updateSongsFromDB(data);
     }
-    public void playPauseMusicHandler(ActionEvent actionEvent) {
+    @FXML
+    private void playPauseMusicHandler(ActionEvent actionEvent) {
         player.playPause(playbtn);
     }
 
@@ -154,7 +136,8 @@ public class MainController implements Initializable {
         }
     }
 
-    public void filterTableHandler(ActionEvent actionEvent) {
+    @FXML
+    private void filterTableHandler(ActionEvent actionEvent) {
         if (!filtertxt.getText().isEmpty()){
             songtable.setItems(new FilterHandler().filter(data,filtertxt));
         }else {
@@ -162,23 +145,26 @@ public class MainController implements Initializable {
         }
     }
 
-    public void resetFilter(ActionEvent actionEvent) {
+    @FXML
+    private void resetFilter(ActionEvent actionEvent) {
         filtertxt.setText("");
         songtable.setItems(data);
     }
 
-    public void playPrevSong(ActionEvent actionEvent) {
+    @FXML
+    private void playPrevSong(ActionEvent actionEvent) {
         if (currentSongIndex != 0){
             Song prevSong = data.get(currentSongIndex-1);
             beginSongHandler(prevSong);
         }
     }
 
-    public void playNextSong(ActionEvent actionEvent) {
-        nextSong();
+    @FXML
+    private void playNextSong(ActionEvent actionEvent) {
+        nextSongMain();
     }
 
-    public void beginSongHandler(Song rowSong){ // initializes new song to be played
+    private void beginSongHandler(Song rowSong){ // initializes new song to be played
         for (int i=0;i<data.size();i++) {
             if (data.get(i) == rowSong){
                 currentSongIndex = i;
@@ -189,10 +175,11 @@ public class MainController implements Initializable {
         player.playNewSong(rowSong.getFile(),playbtn,progressslider,volumeSlider);
         progressslider.disableProperty().set(false);
         volumeSlider.disableProperty().set(false);
-        setter.setNextSongPlayer(player,this);
+        setter.setNextSongPlayerMain(player,this);
     }
 
-    public void editSongHandler(ActionEvent actionEvent) throws IOException {
+    @FXML
+    private void editSongHandler(ActionEvent actionEvent) throws IOException {
         selectedSong = songtable.getSelectionModel().getSelectedItem();
         if (selectedSong!=null && !data.isEmpty()){
             selectedSongIndex = selectedSong.getId();
@@ -207,7 +194,8 @@ public class MainController implements Initializable {
         }
     }
 
-    public void deleteSongHandler(ActionEvent actionEvent) {
+    @FXML
+    private void deleteSongHandler(ActionEvent actionEvent) {
         selectedSong = songtable.getSelectionModel().getSelectedItem();
         if (selectedSong!=null && !data.isEmpty()){
                 dh.deleteSongFromDB(selectedSong.getId());
@@ -226,11 +214,12 @@ public class MainController implements Initializable {
                 }
         }
     }
-    public void openPlaylistSeciton(ActionEvent actionEvent) throws IOException {
+    @FXML
+    private void openPlaylistSeciton(ActionEvent actionEvent) throws IOException {
         Stage primaryStage = (Stage) nextbtn.getScene().getWindow();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/View/PlaylistView.fxml"));
         Parent root = loader.load();
-        player.playPause(playbtn);
+        player.pausePlayer(playbtn);
         primaryStage.setScene(new Scene(root));
         primaryStage.show();
     }
@@ -239,11 +228,11 @@ public class MainController implements Initializable {
         data.clear();
         dh.getAllSongsFromDB(data);
     }
-    public void nextSong(){
+    public void nextSongMain(){
         if (currentSongIndex != data.size()-1){
             Song nextSong = data.get(currentSongIndex+1);
             beginSongHandler(nextSong);
-        }else {
+        }else if (!data.isEmpty()) {
             Song nextSong = data.get(0);
             beginSongHandler(nextSong);
         }

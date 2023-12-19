@@ -85,8 +85,10 @@ public class MusicPlayer {
     }
 
     public void pausePlayer(Button playButton){
-        player.pause();
-        playButton.setGraphic(new ImageView("Images/pause.png"));
-        playing=false;
+        if (player!=null){
+            player.pause();
+            playButton.setGraphic(new ImageView("Images/pause.png"));
+            playing=false;
+        }
     }
 }

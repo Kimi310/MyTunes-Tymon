@@ -6,6 +6,7 @@ import BLL.DataHandler;
 import BLL.MusicPlayer;
 import BLL.ViewProperitesSetter;
 import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -47,8 +48,6 @@ public class PlaylistViewController implements Initializable {
     @FXML
     private Button prevbtn;
     @FXML
-    private TextField filtertxt;
-    @FXML
     private Label playinglbl;
     @FXML
     private TableView<Song> songstable;
@@ -60,7 +59,7 @@ public class PlaylistViewController implements Initializable {
     private TableColumn<Song,String> timeColumn;
     @FXML
     private Slider progressslider;
-    private MusicPlayer player;
+    private MusicPlayer player = new MusicPlayer();
     private ViewProperitesSetter setter = new ViewProperitesSetter();
     private final ObservableList<Playlist> playlists = FXCollections.observableArrayList();
     private ObservableList<Song> data = FXCollections.observableArrayList();
@@ -71,20 +70,29 @@ public class PlaylistViewController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         setButtons();
+        setter.setDataListener(data,progressslider,volumeSlider,playbtn,nextbtn,prevbtn);
         setter.setVolumeListener(volumeSlider, player);
         setter.setProgressOnMouse(progressslider,player);
         polutePlaylistsObservableList();
         setSongsTAbleProperties();
         setPlaylistsTAbleProperties();
     }
-    public void playPauseMusicHandler(ActionEvent actionEvent) {
+    @FXML
+    private void playPauseMusicHandler(ActionEvent actionEvent) {
+        player.playPause(playbtn);
     }
 
-    public void playNextSong(ActionEvent actionEvent) {
+    @FXML
+    private void playNextSong(ActionEvent actionEvent) {
+        nextSongPlaylist();
     }
 
-    public void playPrevSong(ActionEvent actionEvent) {
-
+    @FXML
+    private void playPrevSong(ActionEvent actionEvent) {
+        if (currentSongIndex != 0){
+            Song prevSong = data.get(currentSongIndex-1);
+            beginSongHandler(prevSong);
+        }
     }
     public void polutePlaylistsObservableList(){
         playlists.clear();
@@ -98,9 +106,17 @@ public class PlaylistViewController implements Initializable {
             TableRow<Playlist> row = new TableRow<>();
             row.setOnMouseClicked(event -> {
                 if (event.getClickCount()==1 && !row.isEmpty()){
+                    if (player.getPlayer()!=null){
+                        player.pausePlayer(playbtn);
+                    }
                     Playlist playlist = row.getItem();
                     data.clear();
                     data.addAll(playlist.getSongs());
+                }else if (event.getClickCount()==2 && !row.isEmpty()){
+                    Playlist playlist = row.getItem();
+                    if (!playlist.getSongs().isEmpty()){
+                        beginSongHandler(playlist.getSongs().get(0));
+                    }
                 }
             });
             return row;
@@ -112,23 +128,22 @@ public class PlaylistViewController implements Initializable {
         artistColumn.setCellValueFactory(new PropertyValueFactory<>("artist"));
         timeColumn.setCellValueFactory(new PropertyValueFactory<>("time"));
         songstable.setItems(data);
-        /*
-        playlisttable.setRowFactory(tv -> {
-            TableRow<Playlist> row = new TableRow<>();
+        songstable.setRowFactory(tv -> {
+            TableRow<Song> row = new TableRow<>();
             row.setOnMouseClicked(event -> {
                 if (event.getClickCount()==2 && !row.isEmpty()){
-                    Playlist playlist = row.getItem();
-                    data = playlist.getSongs();
+                    Song rowSong = row.getItem();
+                    beginSongHandler(rowSong);
                 }
             });
             return row;
         });
-         */
     }
     public void openSongsSection(ActionEvent actionEvent) throws IOException {
         Stage primaryStage = (Stage) nextbtn.getScene().getWindow();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/View/MainView.fxml"));
         Parent root = loader.load();
+        player.pausePlayer(playbtn);
         primaryStage.setScene(new Scene(root));
         primaryStage.show();
     }
@@ -142,6 +157,11 @@ public class PlaylistViewController implements Initializable {
         createPlaylistbtn.setGraphic(new ImageView("Images/add.png"));
         addSongToPlaylistbtn.setGraphic(new ImageView("Images/add.png"));
         deleteSongFromPlaylistbtn.setGraphic(new ImageView("Images/delete.png"));
+        if (data.isEmpty()){
+            playbtn.setDisable(true);
+            nextbtn.setDisable(true);
+            prevbtn.setDisable(true);
+        }
     }
 
     @FXML
@@ -214,21 +234,28 @@ public class PlaylistViewController implements Initializable {
             }
         }
     }
-    /*
-    public void beginSongHandler(Song rowSong){ // initializes new song to be played
+
+    private void beginSongHandler(Song rowSong){ // initializes new song to be played
         for (int i=0;i<data.size();i++) {
             if (data.get(i) == rowSong){
                 currentSongIndex = i;
                 break;
             }
         }
-        player.playNewSong(rowSong.getFile(),playbtn);
-        player.beginTimer(progressslider);
+        player.playNewSong(rowSong.getFile(),playbtn,progressslider,volumeSlider);
         progressslider.disableProperty().set(false);
         volumeSlider.disableProperty().set(false);
         playinglbl.setText(rowSong.getTitle());
+        setter.setNextSongPlayerPlaylist(player,this);
     }
-
-     */
+    public void nextSongPlaylist(){
+        if (currentSongIndex != data.size()-1){
+            Song nextSong = data.get(currentSongIndex+1);
+            beginSongHandler(nextSong);
+        }else if (!data.isEmpty()){
+            Song nextSong = data.get(0);
+            beginSongHandler(nextSong);
+        }
+    }
 }
 
