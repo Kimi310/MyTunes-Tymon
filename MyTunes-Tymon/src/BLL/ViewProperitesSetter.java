@@ -12,7 +12,7 @@ import javafx.scene.control.Slider;
 import javafx.scene.media.MediaPlayer;
 import javafx.util.Duration;
 
-public class ViewProperitesSetter {
+public class ViewProperitesSetter extends DataHandler {
     public void setVolumeListener(Slider volumeSlider, MusicPlayer player){
         volumeSlider.valueProperty().addListener(new ChangeListener<Number>() {
             @Override

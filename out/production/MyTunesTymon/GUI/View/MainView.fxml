@@ -61,7 +61,7 @@
          </opaqueInsets>
       </HBox>
       <Label fx:id="playinglbl" alignment="CENTER" layoutX="430.0" layoutY="422.0" prefHeight="17.0" prefWidth="131.0" text="Nothing is playing" />
-      <TableView fx:id="songtable" layoutX="28.0" layoutY="70.0" prefHeight="327.0" prefWidth="559.0">
+      <TableView fx:id="songtable" layoutX="29.0" layoutY="70.0" prefHeight="327.0" prefWidth="559.0">
         <columns>
           <TableColumn fx:id="titleColumn" prefWidth="199.0" text="Title" />
           <TableColumn fx:id="artistColumn" prefWidth="164.0" text="Artist" />

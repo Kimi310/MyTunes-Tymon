@@ -5,11 +5,10 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-
-<AnchorPane prefHeight="133.0" prefWidth="257.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.Controller.CreatePlaylistViewController">
+<AnchorPane prefHeight="133.0" prefWidth="257.0" style="-fx-background-color: #D1C9DC;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.Controller.CreatePlaylistViewController">
    <children>
-      <Button layoutX="192.0" layoutY="94.0" mnemonicParsing="false" onAction="#createNewPlaylist" text="Create" />
-      <TextField fx:id="nametxt" layoutX="77.0" layoutY="42.0" />
+      <Button layoutX="192.0" layoutY="94.0" mnemonicParsing="false" onAction="#createNewPlaylist" style="-fx-background-radius: 20px; -fx-border-radius: 20px; -fx-background-color: #8B75AA;" text="Create" />
+      <TextField fx:id="nametxt" layoutX="77.0" layoutY="42.0" style="-fx-background-radius: 20px; -fx-border-radius: 20px;" />
       <Label layoutX="20.0" layoutY="46.0" prefHeight="17.0" prefWidth="40.0" text="Name:" />
       <Label fx:id="errorlbl" layoutX="26.0" layoutY="98.0" prefHeight="17.0" prefWidth="125.0" text="Your data is incorrect" textFill="RED" visible="false" />
    </children>

@@ -20,11 +20,11 @@
         <Button fx:id="prevbtn" alignment="CENTER" layoutX="28.0" layoutY="408.0" mnemonicParsing="false" onAction="#playPrevSong" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: #8B75AA; -fx-background-radius: 30px; -fx-border-radius: 30px;" />
         <VBox layoutX="611.0" layoutY="70.0" prefHeight="144.0" prefWidth="157.0">
             <children>
-                <Button mnemonicParsing="false" onAction="#openSongsSection" prefHeight="26.0" prefWidth="158.0" style="-fx-background-color: #674892; -fx-background-radius: 20px; -fx-border-radius: 20px;" text="Songs">
+                <Button mnemonicParsing="false" onAction="#openSongsSection" prefHeight="26.0" prefWidth="158.0" style="-fx-background-color: #674892; -fx-background-radius: 20px; -fx-border-radius: 20px;" text="Songs" textFill="WHITE">
                     <VBox.margin>
                         <Insets bottom="10.0" />
                     </VBox.margin></Button>
-                <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="161.0" style="-fx-background-color: #674892; -fx-background-radius: 20px; -fx-border-radius: 20px;" text="Playlists" />
+                <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="161.0" style="-fx-background-color: #674892; -fx-background-radius: 20px; -fx-border-radius: 20px;" text="Playlists" textFill="WHITE" />
             </children>
         </VBox>
         <HBox alignment="CENTER_LEFT" layoutX="28.0" layoutY="30.0" prefHeight="26.0" prefWidth="607.0">

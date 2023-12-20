@@ -161,6 +161,8 @@ public class PlaylistViewController implements Initializable {
             playbtn.setDisable(true);
             nextbtn.setDisable(true);
             prevbtn.setDisable(true);
+            progressslider.setDisable(true);
+            volumeSlider.setDisable(true);
         }
     }
 
