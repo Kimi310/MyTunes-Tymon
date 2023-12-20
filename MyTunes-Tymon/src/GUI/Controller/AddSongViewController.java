@@ -3,13 +3,10 @@ package GUI.Controller;
 import BE.Song;
 import BLL.AddingSongHandler;
 import BLL.DataHandler;
-import com.microsoft.sqlserver.jdbc.SQLServerDataSource;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
-import javafx.scene.control.ProgressBar;
 import javafx.scene.control.TextField;
 import javafx.scene.media.Media;
 import javafx.stage.FileChooser;
@@ -17,7 +14,6 @@ import javafx.stage.Stage;
 import javafx.stage.FileChooser.ExtensionFilter;
 import java.io.File;
 import java.sql.SQLException;
-import java.util.ArrayList;
 
 public class AddSongViewController {
     @FXML
@@ -75,8 +71,6 @@ public class AddSongViewController {
         if (file != null){
             filetxt.setText(file.getAbsolutePath());
             Media sound = new Media(file.toURI().toString());
-            System.out.println(sound.getDuration().toSeconds());
-            timetxt.setText(String.valueOf(sound.getDuration().toSeconds()));
             titletxt.setText(file.getName());
         }
     }

@@ -6,11 +6,7 @@ import com.microsoft.sqlserver.jdbc.SQLServerDataSource;
 import com.microsoft.sqlserver.jdbc.SQLServerException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.fxml.Initializable;
-
-import java.net.URL;
 import java.sql.*;
-import java.util.ResourceBundle;
 
 public class DataBaseAccess{
     public void addSongToDB(Song song) throws SQLException{

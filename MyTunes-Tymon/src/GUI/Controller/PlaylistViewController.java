@@ -6,7 +6,6 @@ import BLL.DataHandler;
 import BLL.MusicPlayer;
 import BLL.ViewProperitesSetter;
 import javafx.collections.FXCollections;
-import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -18,8 +17,6 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
-
-import javax.swing.*;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -145,6 +142,7 @@ public class PlaylistViewController implements Initializable {
         Parent root = loader.load();
         player.pausePlayer(playbtn, playinglbl);
         primaryStage.setScene(new Scene(root));
+        primaryStage.setTitle("MyTunes");
         primaryStage.show();
     }
 
@@ -174,6 +172,7 @@ public class PlaylistViewController implements Initializable {
         CreatePlaylistViewController controller = loader.getController();
         controller.setParentController(this);
         primaryStage.setScene(new Scene(root));
+        primaryStage.setTitle("Create playlist");
         primaryStage.show();
     }
     @FXML
@@ -200,6 +199,7 @@ public class PlaylistViewController implements Initializable {
             controller.setEditPlaylistOnInit(selectedPlaylist.getName());
             controller.setParentController(this);
             primaryStage.setScene(new Scene(root));
+            primaryStage.setTitle("Edit playlist");
             primaryStage.show();
         }
     }
@@ -217,6 +217,7 @@ public class PlaylistViewController implements Initializable {
             controller.excludeAlreadyAddedSongs(selectedPlaylist.getSongs());
             controller.poluteData();
             primaryStage.setScene(new Scene(root));
+            primaryStage.setTitle("Add song to playlist");
             primaryStage.show();
         }
     }

@@ -5,11 +5,7 @@ import BLL.DataHandler;
 import BLL.FilterHandler;
 import BLL.MusicPlayer;
 import BLL.ViewProperitesSetter;
-import DAL.DataBaseAccess;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
-import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -20,9 +16,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
-import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
-import javafx.util.Duration;
 
 import java.io.File;
 import java.io.IOException;
@@ -91,6 +85,7 @@ public class MainController implements Initializable {
         AddSongViewController addSong = loader.getController();
         addSong.setParentController(this);
         primaryStage.setScene(new Scene(root));
+        primaryStage.setTitle("Add song");
         primaryStage.show();
     }
 
@@ -190,6 +185,7 @@ public class MainController implements Initializable {
             addSong.setParentController(this);
             addSong.editInit(selectedSong,selectedSongIndex);
             primaryStage.setScene(new Scene(root));
+            primaryStage.setTitle("Edit song");
             primaryStage.show();
         }
     }
@@ -221,6 +217,7 @@ public class MainController implements Initializable {
         Parent root = loader.load();
         player.pausePlayer(playbtn, playinglbl);
         primaryStage.setScene(new Scene(root));
+        primaryStage.setTitle("MyTunes");
         primaryStage.show();
     }
 

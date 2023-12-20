@@ -3,8 +3,6 @@ package BLL;
 import BE.Song;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-
-import javax.swing.text.TableView;
 import javafx.scene.control.*;
 
 public class FilterHandler {

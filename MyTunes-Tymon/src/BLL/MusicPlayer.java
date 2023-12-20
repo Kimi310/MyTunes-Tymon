@@ -1,6 +1,5 @@
 package BLL;
 
-import GUI.Controller.MainController;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
