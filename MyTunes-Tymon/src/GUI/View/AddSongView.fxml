@@ -60,7 +60,7 @@
                   <Insets top="13.0" />
                </VBox.margin>
             </TextField>
-            <TextField fx:id="filetxt" prefHeight="25.0" prefWidth="194.0" style="-fx-background-radius: 20px; -fx-border-radius: 20px;">
+            <TextField fx:id="filetxt" editable="false" prefHeight="25.0" prefWidth="194.0" style="-fx-background-radius: 20px; -fx-border-radius: 20px;">
                <VBox.margin>
                   <Insets top="11.0" />
                </VBox.margin>
